@@ -1,7 +1,7 @@
 <template>
   <swiper :pagination="pagination" :loop="true" :navigation="true" :modules="modules" class="mySwiper">
-    <swiper-slide v-for="(item, index) in items.data">
-      <img :src="item" :alt="index">
+    <swiper-slide v-for="(item, index) in items.data.data">
+      <img :src="`src/assets/cloth/${items.data.type}/${item}`" :alt="index">
     </swiper-slide>
     <swiper-slide>
       <div class="empty-slide"></div>
@@ -25,7 +25,7 @@ const pagination = {
   renderBullet: function (index, className) {
     return '<span class="' + className + '">' + (index + 1) + '</span>';
   },
-}
+};
 
 const modules = [Pagination, Navigation];
 
@@ -47,6 +47,9 @@ const modules = [Pagination, Navigation];
   max-height: 100%;
   max-width: 100%;
   margin: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .swiper:hover .swiper-pagination-bullet {

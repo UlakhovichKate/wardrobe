@@ -32,33 +32,108 @@
 
 <script setup>
   import Slider from "./components/Slider.vue";
-  import { ref } from "vue";
+  import { ref, reactive } from "vue";
 
-  const dataCoats = ref([
-      'src/assets/cloth/coats/1674046687-bestwhiteshirts2023-mango-1674046465.png',
-      'src/assets/cloth/coats/hmgoepprod.jpg',
-      'src/assets/cloth/coats/sportswear-phoenix-fleece-womens-over-oversized-crewneck-sweatshirt-Wj2Rd6.png'
-  ])
-  const dataBags = ref([
-      "src/assets/cloth/bags/2022-L6-CK2-20151158-01-1.jpg",
-      "src/assets/cloth/bags/148605A213_main.jpg"
-  ])
-  const dataHats = ref([
-      'src/assets/cloth/hats/Chok.Lids Everyday Bucket Hat.webp',
-      'src/assets/cloth/hats/eb0cb2f7-350f-49ea-95f9-86a87207a32e.webp'
-  ])
-  const dataPants = ref([
-      'src/assets/cloth/pants/100140170113000_0_1664227209494.jpg',
-      'src/assets/cloth/pants/h_5051839610620.jpg'
-  ])
-  const dataFull = ref([
-      'src/assets/cloth/full/1656012267-best-flowy-dresses-women-doen-dress-1656012229.png',
-      'src/assets/cloth/full/best.jpg'
-  ])
-  const dataShoes = ref([
-      'src/assets/cloth/shoes/1433977020_main.jpg',
-      'src/assets/cloth/shoes/images.jpg'
-  ])
+  const dataCoats = reactive({
+      data: [
+        'IMG_0753.jpg',
+        'IMG_0754.jpg',
+        'IMG_0755.jpg',
+        'IMG_0758.jpg',
+        'IMG_0759.jpg',
+        'IMG_0760.jpg',
+        'IMG_0761.jpg',
+        'IMG_0762.jpg',
+        'IMG_0765.jpg',
+        'IMG_0766.jpg',
+        'IMG_0767.jpg',
+        'IMG_0768.jpg',
+        'IMG_0769.jpg',
+        'IMG_0770.jpg',
+        'IMG_0771.jpg',
+        'IMG_0773.jpg',
+        'IMG_0790.jpg',
+        'IMG_0791.jpg',
+        'IMG_0914.jpg',
+        'IMG_0916.jpg',
+        'IMG_0922.jpg',
+      ],
+      type: 'coats'
+  });
+  const dataBags = reactive({
+    data: [
+      "IMG_0774.jpg",
+      "IMG_0775.jpg",
+      "IMG_0776.jpg",
+      "IMG_0777.jpg",
+      "IMG_0778.jpg",
+      "IMG_0779.jpg",
+      "IMG_0780.jpg",
+      "IMG_0781.jpg",
+      "IMG_0782.jpg",
+      "IMG_0783.jpg"
+    ],
+    type: 'bags'
+  });
+  const dataHats = reactive({
+    data: [
+            'IMG_0931.jpg',
+            'IMG_0932.jpg',
+            'IMG_0933.jpg',
+            'IMG_0934.jpg',
+            'IMG_0935.jpg',
+            'IMG_0936.jpg',
+            'IMG_0937.jpg',
+    ],
+    type: 'hats'
+  });
+  const dataPants = reactive({
+    data: [
+      'IMG_0756.jpg',
+      'IMG_0757.jpg',
+      'IMG_0763.jpg',
+      'IMG_0764.jpg',
+      'IMG_0797.jpg',
+      'IMG_0921.jpg',
+      'IMG_0923.jpg',
+      'IMG_0924.jpg',
+    ],
+    type: 'pants'
+  });
+  const dataFull = reactive({
+    data: [
+      'IMG_0752.jpg',
+      'IMG_0792.jpg',
+      'IMG_0793.jpg',
+      'IMG_0794.jpg',
+      'IMG_0795.jpg',
+      'IMG_0796.jpg',
+      'IMG_0911.jpg',
+      'IMG_0912.jpg',
+      'IMG_0915.jpg',
+      'IMG_0917.jpg',
+      'IMG_0918.jpg',
+      'IMG_0919.jpg',
+      'IMG_0920.jpg',
+      'IMG_0925.jpg',
+      'IMG_0926.jpg',
+      'IMG_0927.jpg',
+    ],
+    type: 'full'
+  });
+  const dataShoes = reactive({
+    data: [
+      'IMG_0784.jpg',
+      'IMG_0785.jpg',
+      'IMG_0786.jpg',
+      'IMG_0787.jpg',
+      'IMG_0788.jpg',
+      'IMG_0789.jpg',
+      'IMG_0929.jpg',
+      'IMG_0930.jpg'
+    ],
+    type: 'shoes'
+  });
 </script>
 
 <style>
