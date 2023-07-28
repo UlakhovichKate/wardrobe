@@ -49,7 +49,6 @@
         'IMG_0767.jpg',
         'IMG_0768.jpg',
         'IMG_0769.jpg',
-        'IMG_0770.jpg',
         'IMG_0771.jpg',
         'IMG_0773.jpg',
         'IMG_0790.jpg',
