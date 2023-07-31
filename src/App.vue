@@ -5,25 +5,25 @@
   <main>
     <div class="page">
       <div class="section left">
-        <slider :data="dataFull"/>
+        <slider data="2"/>
       </div>
       <div class="center">
         <div class="section coats">
-          <slider :data="dataCoats"/>
+          <slider data="10"/>
         </div>
         <div class="section pants">
-          <slider :data="dataPants"/>
+          <slider data="11"/>
         </div>
       </div>
       <div class="right">
         <div class="section hats">
-          <slider :data="dataHats"/>
+          <slider data="12"/>
         </div>
         <div class="section bags">
-          <slider :data="dataBags"/>
+          <slider data="18"/>
         </div>
         <div class="section shoes">
-          <slider :data="dataShoes"/>
+          <slider data="13"/>
         </div>
       </div>
     </div>
@@ -32,7 +32,7 @@
 
 <script setup>
   import Slider from "./components/Slider.vue";
-  import { ref, reactive } from "vue";
+  import { reactive } from "vue";
 
   const dataCoats = reactive({
       data: [

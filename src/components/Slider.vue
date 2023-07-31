@@ -1,7 +1,7 @@
 <template>
   <swiper :pagination="pagination" :loop="true" :navigation="true" :modules="modules" class="mySwiper">
-    <swiper-slide v-for="(item, index) in items.data.data">
-      <img :src="`src/assets/cloth/${items.data.type}/${item}`" :alt="index">
+    <swiper-slide v-for="(item, index) in items">
+      <img :src="item.media" :alt="index">
     </swiper-slide>
     <swiper-slide>
       <div class="empty-slide"></div>
@@ -12,13 +12,32 @@
 <script setup>
 import { Pagination, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue'
-
-// import Swiper and modules styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import {ref} from "vue";
 
-const items = defineProps(['data'])
+const props = defineProps(['data'])
+
+const items = ref(null);
+
+async function fetchJokes(category) {
+  try {
+    const response = await fetch('http://localhost:8000/wp-json/wp/v2/posts?categories='+ category +'&per_page=100');
+    const clothes = await response.json();
+
+    items.value = clothes.map(x => {
+          return {
+            'tags': x.tags,
+            'media': x.fimg_url
+          }
+        })
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+fetchJokes(props.data);
 
 const pagination = {
   clickable: true,
