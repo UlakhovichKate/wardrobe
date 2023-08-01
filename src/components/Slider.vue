@@ -1,7 +1,9 @@
 <template>
+  {{ tag }}
   <swiper :pagination="pagination" :loop="true" :navigation="true" :modules="modules" class="mySwiper">
-    <swiper-slide v-for="(item, index) in items">
+    <swiper-slide v-for="(item, index) in filteredItems" :key="index" class="slide">
       <img :src="item.media" :alt="index">
+      <span class="tags">{{ item.tags }}</span>
     </swiper-slide>
     <swiper-slide>
       <div class="empty-slide"></div>
@@ -15,13 +17,14 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import {ref} from "vue";
+import {ref, watch} from "vue";
 
-const props = defineProps(['data'])
+const props = defineProps(['data', 'selectedTag'])
 
 const items = ref(null);
+const filteredItems = ref(null);
 
-async function fetchJokes(category) {
+async function fetchBackend(category) {
   try {
     const response = await fetch('http://localhost:8000/wp-json/wp/v2/posts?categories='+ category +'&per_page=100');
     const clothes = await response.json();
@@ -32,12 +35,29 @@ async function fetchJokes(category) {
             'media': x.fimg_url
           }
         })
+    filteredItems.value = items.value
+
   } catch (error) {
     console.error(error);
   }
 }
 
-fetchJokes(props.data);
+fetchBackend(props.data);
+
+watch(
+    () => props.selectedTag,
+    () => {
+      filteredItems.value = items.value
+
+      if (props.selectedTag.length > 0) {
+        filteredItems.value = filteredItems.value.filter(x => {
+          return x.tags.includes(props.selectedTag)
+        })
+      } else {
+        filteredItems.value = items.value
+      }
+    }
+)
 
 const pagination = {
   clickable: true,
@@ -104,5 +124,15 @@ const modules = [Pagination, Navigation];
   width: 100%;
   height: 100%;
   background-color: #fff;
+}
+
+.slide {
+  position: relative;
+}
+
+.tags {
+  position: absolute;
+  top: 50px;
+  left: 50px;
 }
 </style>
