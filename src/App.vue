@@ -1,7 +1,6 @@
 <template>
-  <header>
+  <header class="header">
     <h1>Wardrobe</h1>
-    {{ selectedTag }}
     <filters @select-tag="getFilter" />
   </header>
   <main>
@@ -46,6 +45,12 @@
 </script>
 
 <style>
+ .header {
+   display: flex;
+   gap: 10px;
+   padding: 10px 0 10px;
+ }
+
   .page {
     display: flex;
     box-sizing: border-box;

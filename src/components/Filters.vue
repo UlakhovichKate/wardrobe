@@ -1,8 +1,12 @@
 <template>
   <div class="filter">
-    Filters:
     <ul class="list">
-      <li class="item" v-for="(item, index) in items" :data-tag="item.id" :key="index" @click="addFilter(item.id)">
+      <li class="item"
+          v-for="(item, index) in items"
+          :data-tag="item.id"
+          :key="index"
+          @click="addFilter(item.id);toggleBtn(index)"
+          :class="{ active: activeClass[index] }">
         {{ item.name }}
       </li>
     </ul>
@@ -10,7 +14,7 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 
 const items = ref(null);
 
@@ -35,6 +39,7 @@ fetchBackend();
 
 const emit = defineEmits(['selectTag'])
 const filters = ref([]);
+const activeClass = reactive({})
 
 function addFilter(n) {
   if (filters.value.includes(n)) {
@@ -43,8 +48,11 @@ function addFilter(n) {
   } else {
     filters.value.push(n)
   }
-
   emit('selectTag', filters)
+}
+
+const toggleBtn = (index) => {
+  activeClass[index] = !activeClass[index]
 }
 
 </script>
@@ -55,20 +63,24 @@ function addFilter(n) {
   flex-wrap: wrap;
   gap: 5px;
   list-style: none;
-  margin: 0 0 20px;
+  margin: 0;
   padding: 0;
 }
 
 .item {
   padding: 1px 10px 3px;
   border-radius: 3px;
-  background-color: #2c3e50;
+  background-color: #a4a4a4;
   color: #fff;
   cursor: pointer;
 }
 
-.item:hover,
-.item.active {
-  background-color: #3a7bb5;
+.item:hover {
+  opacity: 0.7;
 }
+
+.item.active {
+  background-color: #a1be94;
+}
+
 </style>

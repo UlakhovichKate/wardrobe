@@ -1,5 +1,4 @@
 <template>
-  {{ tag }}
   <swiper :pagination="pagination" :loop="true" :navigation="true" :modules="modules" class="mySwiper">
     <swiper-slide v-for="(item, index) in filteredItems" :key="index" class="slide">
       <img :src="item.media" :alt="index">
@@ -17,7 +16,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import {ref, watch} from "vue";
+import {ref, watch, computed } from "vue";
 
 const props = defineProps(['data', 'selectedTag'])
 
@@ -44,20 +43,22 @@ async function fetchBackend(category) {
 
 fetchBackend(props.data);
 
-watch(
-    () => props.selectedTag,
-    () => {
-      filteredItems.value = items.value
+watch( ()=> props.selectedTag, (newVal)=> {
+  filteredItems.value = items.value
 
-      if (props.selectedTag.length > 0) {
-        filteredItems.value = filteredItems.value.filter(x => {
-          return x.tags.includes(props.selectedTag)
-        })
-      } else {
-        filteredItems.value = items.value
+  if (newVal?.value.length > 0) {
+    filteredItems.value = filteredItems.value.filter(x => {
+      const found = x.tags.some(r=> newVal.value.indexOf(r) >= 0)
+      if (found) {
+        return x
       }
-    }
-)
+    })
+
+  } else {
+    filteredItems.value = items.value
+  }
+
+}, {immediate:true, deep: true});
 
 const pagination = {
   clickable: true,
