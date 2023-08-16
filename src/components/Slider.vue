@@ -1,7 +1,7 @@
 <template>
   <swiper :pagination="pagination" :loop="true" :navigation="true" :modules="modules" class="mySwiper">
     <swiper-slide v-for="(item, index) in items.data.data">
-      <img :src="`src/assets/cloth/${items.data.type}/${item}`" :alt="index">
+      <img :src="`/cloth/${items.data.type}/${item}`" :alt="index">
     </swiper-slide>
     <swiper-slide>
       <div class="empty-slide"></div>
