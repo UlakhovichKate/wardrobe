@@ -1,7 +1,8 @@
 <template>
   <swiper :pagination="pagination" :loop="true" :navigation="true" :modules="modules" class="mySwiper">
-    <swiper-slide v-for="(item, index) in items.data.data">
-      <img :src="`src/assets/cloth/${items.data.type}/${item}`" :alt="index">
+    <swiper-slide v-for="(item, index) in filteredItems" :key="index" class="slide">
+      <img :src="item.media" :alt="index">
+      <span class="tags">{{ item.tags }}</span>
     </swiper-slide>
     <swiper-slide>
       <div class="empty-slide"></div>
@@ -12,13 +13,52 @@
 <script setup>
 import { Pagination, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue'
-
-// import Swiper and modules styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import {ref, watch, computed } from "vue";
 
-const items = defineProps(['data'])
+const props = defineProps(['data', 'selectedTag'])
+
+const items = ref(null);
+const filteredItems = ref(null);
+
+async function fetchBackend(category) {
+  try {
+    const response = await fetch('http://localhost:8000/wp-json/wp/v2/posts?categories='+ category +'&per_page=100');
+    const clothes = await response.json();
+
+    items.value = clothes.map(x => {
+          return {
+            'tags': x.tags,
+            'media': x.fimg_url
+          }
+        })
+    filteredItems.value = items.value
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+fetchBackend(props.data);
+
+watch( ()=> props.selectedTag, (newVal)=> {
+  filteredItems.value = items.value
+
+  if (newVal?.value.length > 0) {
+    filteredItems.value = filteredItems.value.filter(x => {
+      const found = x.tags.some(r=> newVal.value.indexOf(r) >= 0)
+      if (found) {
+        return x
+      }
+    })
+
+  } else {
+    filteredItems.value = items.value
+  }
+
+}, {immediate:true, deep: true});
 
 const pagination = {
   clickable: true,
@@ -85,5 +125,15 @@ const modules = [Pagination, Navigation];
   width: 100%;
   height: 100%;
   background-color: #fff;
+}
+
+.slide {
+  position: relative;
+}
+
+.tags {
+  position: absolute;
+  top: 50px;
+  left: 50px;
 }
 </style>
