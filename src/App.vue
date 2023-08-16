@@ -1,7 +1,4 @@
 <template>
-  <header>
-    <h1>Wardrobe</h1>
-  </header>
   <main>
     <div class="page">
       <div class="section left">
