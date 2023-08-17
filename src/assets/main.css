@@ -2,7 +2,7 @@
 
 #app {
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   font-weight: normal;
 }
 
@@ -22,9 +22,5 @@ a,
 @media (min-width: 1024px) {
   body {
 
-  }
-
-  #app {
-    padding: 0 2rem;
   }
 }

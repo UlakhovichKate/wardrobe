@@ -134,9 +134,10 @@
 
 <style>
   .page {
+    width: calc(100vw - 20px);
     display: flex;
     box-sizing: border-box;
-    height: 95vh;
+    height: 100vh;
     gap: 10px;
   }
 
@@ -147,14 +148,14 @@
   .center {
     max-width: 40%;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
   }
 
   .right {
     max-width: 30%;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
   }
 
@@ -163,7 +164,7 @@
   }
 
   .coats {
-    height: 43vh;
+    height: 48vh;
   }
 
   .pants {
@@ -176,7 +177,7 @@
   }
 
   .bags {
-    height: 31vh;
+    height: 36vh;
   }
 
   .shoes {

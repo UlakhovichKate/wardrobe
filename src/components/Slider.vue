@@ -39,7 +39,11 @@ const modules = [Pagination, Navigation];
 }
 
 .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  background: url("/public/cloth/bg-pattern.jpg") 0 0 repeat;
 }
 
 .swiper-slide img {
