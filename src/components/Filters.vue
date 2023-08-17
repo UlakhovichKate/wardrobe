@@ -17,7 +17,7 @@
 import {inject, reactive, ref} from "vue";
 
 const clothData = inject("clothData");
-const distinctTags = [...new Set((clothData.map(obj => obj.tags).join(',')).split(','))];
+const distinctTags = [...new Set((clothData.map(obj => obj.tags).join(',')).split(',').sort())];
 
 const items = ref(distinctTags);
 
@@ -100,7 +100,7 @@ const toggleBtn = (index) => {
 }
 
 .item.active {
-  background-color: #a1be94;
+  background-color: var(--primary);
 }
 
 </style>

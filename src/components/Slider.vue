@@ -93,13 +93,14 @@ watch( ()=> props.selectedTag, (newVal)=> {
 }
 
 .swiper-pagination-bullet-active {
-  background: #a1be94;
+  background: var(--primary);
+  color: #fff;
 }
 
 .swiper-button-prev,
 .swiper-button-next {
   opacity: 0;
-  color: #a1be94;
+  color: var(--primary);
   transition: all .5s;
 }
 
