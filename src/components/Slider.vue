@@ -1,7 +1,7 @@
 <template>
   <swiper :pagination="pagination" :loop="true" :navigation="true" :modules="modules" class="mySwiper">
-    <swiper-slide v-for="(item, index) in items.data.data">
-      <img :src="`/cloth/${items.data.type}/${item}`" :alt="index">
+    <swiper-slide v-for="(item, index) in filteredItems">
+      <img :src="`/cloth/${item.category}/${item.image}.jpg`" :alt="index">
     </swiper-slide>
     <swiper-slide>
       <div class="empty-slide"></div>
@@ -17,8 +17,11 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import {ref, watch} from "vue";
 
-const items = defineProps(['data'])
+const props = defineProps(['data', 'selectedTag'])
+const items = ref(props.data)
+const filteredItems = ref(null);
 
 const pagination = {
   clickable: true,
@@ -28,6 +31,27 @@ const pagination = {
 };
 
 const modules = [Pagination, Navigation];
+
+watch( ()=> props.selectedTag, (newVal)=> {
+  filteredItems.value = items.value.data
+
+  if (newVal?.value.length > 0) {
+
+    filteredItems.value = filteredItems.value.filter(x => {
+      const found = x.tags.some(r => {
+        return newVal.value.indexOf(r) >= 0
+      })
+
+      if (found) {
+        return x
+      }
+    })
+
+  } else {
+    filteredItems.value = items.value.data
+  }
+
+}, {immediate:true, deep: true});
 
 </script>
 
@@ -65,6 +89,7 @@ const modules = [Pagination, Navigation];
   font-size: 12px;
   opacity: 0;
   background: rgba(0, 0, 0, 0.2);
+  transition: all .5s;
 }
 
 .swiper-pagination-bullet-active {
@@ -75,6 +100,7 @@ const modules = [Pagination, Navigation];
 .swiper-button-next {
   opacity: 0;
   color: #a1be94;
+  transition: all .5s;
 }
 
 .swiper:hover .swiper-button-prev,

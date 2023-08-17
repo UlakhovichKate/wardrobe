@@ -3,20 +3,23 @@
     <ul class="list">
       <li class="item"
           v-for="(item, index) in items"
-          :data-tag="item.id"
+          :data-tag="item"
           :key="index"
-          @click="addFilter(item.id);toggleBtn(index)"
+          @click="addFilter(item);toggleBtn(index)"
           :class="{ active: activeClass[index] }">
-        {{ item.name }}
+        {{ item }}
       </li>
     </ul>
   </div>
 </template>
 
 <script setup>
-import {reactive, ref} from "vue";
+import {inject, reactive, ref} from "vue";
 
-const items = ref(null);
+const clothData = inject("clothData");
+const distinctTags = [...new Set((clothData.map(obj => obj.tags).join(',')).split(','))];
+
+const items = ref(distinctTags);
 
 async function fetchBackend() {
   try {
@@ -35,7 +38,9 @@ async function fetchBackend() {
   }
 }
 
-fetchBackend();
+//fetchBackend();
+
+
 
 const emit = defineEmits(['selectTag'])
 const filters = ref([]);
@@ -58,6 +63,21 @@ const toggleBtn = (index) => {
 </script>
 
 <style scoped>
+.filter {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: all 0.5s;
+  z-index: 2;
+}
+
+.filter:hover {
+  opacity: 1;
+}
+
 .list {
   display: flex;
   flex-wrap: wrap;
