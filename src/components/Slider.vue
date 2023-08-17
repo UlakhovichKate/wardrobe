@@ -1,6 +1,6 @@
 <template>
   <swiper :pagination="pagination" :loop="true" :navigation="true" :modules="modules" class="mySwiper">
-    <swiper-slide v-for="(item, index) in filteredItems">
+    <swiper-slide v-for="(item, index) in filteredItems" :key="index">
       <img :src="`/cloth/${item.category}/${item.image}.jpg`" :alt="index">
     </swiper-slide>
     <swiper-slide>
